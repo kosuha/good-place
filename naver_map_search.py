@@ -2,15 +2,13 @@
 
 from selenium import webdriver    # 라이브러리에서 사용하는 모듈만 호출
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.keys import Keys    # 키보드 사용
 from selenium.webdriver.support.ui import WebDriverWait   # 해당 태그를 기다림
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException    # 태그가 없는 예외 처리
-from selenium.webdriver.common.action_chains import ActionChains
 import pandas as pd
 import time
 import urllib
-import webbrowser
 
 chromedriver = '/Users/seonhokim/good-place/chromedriver'
 options = webdriver.ChromeOptions()
@@ -113,7 +111,7 @@ def crawler(si_gun_gu, eup_myun_dong, keyword):
         driver.quit()
 
         return df
-        
+
     # 예외처리
     except TimeoutException:
         print('해당 페이지에 정보가 존재하지 않습니다.')
