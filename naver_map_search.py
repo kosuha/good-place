@@ -69,7 +69,7 @@ def crawler(si_gun_gu, eup_myun_dong, keyword):
                 driver.switch_to.default_content()
                 entry_frame = driver.find_element_by_id(entry_iframe_tag)
                 driver.switch_to.frame(entry_frame)
-                time.sleep(1)
+                time.sleep(2)
 
                 # 상호명, 업종, 주소, 전화번호(없으면 공백) 크롤링
                 title = driver.find_element_by_css_selector('#_title>span:nth-child(1)').text
@@ -109,6 +109,7 @@ def crawler(si_gun_gu, eup_myun_dong, keyword):
 
         # 드라이버 종료
         driver.quit()
+        print("-" * 100)
 
         return df
 
@@ -116,8 +117,8 @@ def crawler(si_gun_gu, eup_myun_dong, keyword):
     except TimeoutException:
         print('해당 페이지에 정보가 존재하지 않습니다.')
         driver.quit()
+        print("-" * 100)
+        return -1
 
-    print("-" * 100)
-
-crawler("파주시", "광탄면", "카페")
+    
 
