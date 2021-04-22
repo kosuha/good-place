@@ -4,7 +4,7 @@ import sys
 import json
 import urllib.request
 import pandas as pd
-import config.seoul_api as seoul_api
+import config.seoul_api_keys as seoul_api
 import config.conn as pw
 import pymysql
 from sqlalchemy import create_engine
