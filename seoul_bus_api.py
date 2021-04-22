@@ -89,3 +89,25 @@ def bus_onoff_data(date):
                 print(data_dict_container['RESULT']['MESSAGE'])
                 break
 
+# 버스정류장별 하차 승객 수의 합
+def bus_off_sum(date):
+    bus_onoff = pd.read_sql_query("select * from test", db_connection) # 테스트용
+    # bus_onoff = bus_onoff_data(date)
+
+    # 필요한 colume만 추출
+    bus_off = bus_onoff[['STND_BSST_ID', 'ALIGHT_PASGR_NUM']]
+    bus_stations = bus_off['STND_BSST_ID'].to_list()
+    bus_stations = list(set(bus_stations)) # 중복 제거
+    off_passengers_nums = []
+
+    # 정류장별로 합계 구해서 배열에 추가
+    for station in bus_stations:
+        is_station = bus_off['STND_BSST_ID'] == station
+        bus_off_for_station = bus_off[is_station]
+        off_passengers_nums.append(bus_off_for_station['ALIGHT_PASGR_NUM'].sum())
+
+    # DataFrame으로 변환
+    df = pd.DataFrame({'STND_BSST_ID': bus_stations, 'ALIGHT_PASGR_NUM': off_passengers_nums})
+    print(df)
+
+bus_off_sum("20210416")
