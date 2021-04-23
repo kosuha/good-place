@@ -15,10 +15,12 @@ conn = db_connection.connect()
 
 # api key
 key = seoul_api.bus_stop_location_key
+
 # 요청 파일 타입
 response_type = "json"
 
-def get_location():
+# 서울 버스정류장의 위경도 값을 받아오는 api
+def get_locations():
     start_page = 1
     
     # 빈 DataFrame 만들기
@@ -46,18 +48,16 @@ def get_location():
 
         try:
             # 받은 응답을 변수에 저장
-            data_dict = data_dict_container['CardSubwayStatsNew']
+            data_dict = data_dict_container['busStopLocationXyInfo']
 
             # 응답이 제대로 들어왔을 경우 DataFrame에 한 줄씩 저장 
             if data_dict['RESULT']['CODE'] == 'INFO-000':
                 data_list = data_dict['row']
                 page_df = pd.DataFrame(columns=[
-                    'USE_DT',
-                    'LINE_NUM',
-                    'SUB_STA_NM',
-                    'RIDE_PASGR_NUM',
-                    'ALIGHT_PASGR_NUM',
-                    'WORK_DT'
+                    'STOP_NO',
+                    'STOP_NM',
+                    'XCODE',
+                    'YCODE'
                 ])
 
                 for row in data_list:
@@ -71,6 +71,7 @@ def get_location():
                 if data_dict['list_total_count'] < start_page:
                     print("END")
                     df = pd.concat(dfs)
+                    print(df)
                     # df.to_sql(name='test', con=db_connection, if_exists='replace', index=False) # 테스트용
                     return df
 
@@ -85,3 +86,5 @@ def get_location():
                 break
 
     return 0
+
+get_locations()
