@@ -96,18 +96,18 @@ def bus_off_sum(date):
 
     # 필요한 colume만 추출
     bus_off = bus_onoff[['STND_BSST_ID', 'ALIGHT_PASGR_NUM']]
-    bus_stations = bus_off['STND_BSST_ID'].to_list()
-    bus_stations = list(set(bus_stations)) # 중복 제거
+    bus_stops = bus_off['STND_BSST_ID'].to_list()
+    bus_stops = list(set(bus_stops)) # 중복 제거
     off_passengers_nums = []
 
     # 정류장별로 합계 구해서 배열에 추가
-    for station in bus_stations:
-        is_station = bus_off['STND_BSST_ID'] == station
-        bus_off_for_station = bus_off[is_station]
-        off_passengers_nums.append(bus_off_for_station['ALIGHT_PASGR_NUM'].sum())
+    for stop in bus_stops:
+        is_stop = bus_off['STND_BSST_ID'] == stop
+        bus_off_for_stop = bus_off[is_stop]
+        off_passengers_nums.append(bus_off_for_stop['ALIGHT_PASGR_NUM'].sum())
 
     # DataFrame으로 변환
-    df = pd.DataFrame({'STND_BSST_ID': bus_stations, 'ALIGHT_PASGR_NUM': off_passengers_nums})
+    df = pd.DataFrame({'STND_BSST_ID': bus_stops, 'ALIGHT_PASGR_NUM': off_passengers_nums})
     print(df)
 
 bus_off_sum("20210416")
