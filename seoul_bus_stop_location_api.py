@@ -4,7 +4,7 @@ import sys
 import json
 import urllib.request
 import pandas as pd
-import config.seoul_api_keys as seoul_api
+import config.api_keys as api
 import config.conn as pw
 import pymysql
 from sqlalchemy import create_engine
@@ -14,7 +14,7 @@ db_connection = create_engine(pw.conn)
 conn = db_connection.connect()
 
 # api key
-key = seoul_api.bus_stop_location_key
+key = api.bus_stop_location_key
 
 # 요청 파일 타입
 response_type = "json"

@@ -3,11 +3,11 @@ import os
 import sys
 import json
 import urllib.request
-import config.naver_api_code as naver_api
+import config.api_keys as api
 
-client_id = naver_api.client_id
-client_secret = naver_api.client_secret
-url = naver_api.url
+client_id = api.naver_client_id
+client_secret = api.naver_client_secret
+url = "https://openapi.naver.com/v1/datalab/search"
 
 # 네이버 통합 검색어 트랜드
 def search_trend(setting):
