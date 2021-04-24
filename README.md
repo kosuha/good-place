@@ -6,4 +6,5 @@ https://developers.naver.com/docs/serviceapi/datalab/search/search.md#%ED%86%B5%
 http://data.seoul.go.kr/dataList/OA-12912/S/1/datasetView.do  
 http://data.seoul.go.kr/dataList/OA-12914/S/1/datasetView.do  
 http://data.seoul.go.kr/dataList/OA-15067/S/1/datasetView.do  
-https://www.vworld.kr/dev/v4dv_geocoderguide_s002.do  
+https://developers.kakao.com/tool/rest-api/open/get/v2-local-geo-coord2regioncode.%7Bformat%7D  
+https://developers.kakao.com/tool/rest-api/open/get/v2-local-search-keyword.%7Bformat%7D  
