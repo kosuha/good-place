@@ -8,6 +8,7 @@ import config.api_keys as api
 import config.conn as pw
 import pymysql
 from sqlalchemy import create_engine
+import subway_station_address
 
 # DB에 연결
 db_connection = create_engine(pw.conn)
@@ -104,5 +105,12 @@ def subway_off_sum(date):
 
     # DataFrame으로 변환
     df = pd.DataFrame({'SUB_STA_NM': subway_stations, 'ALIGHT_PASGR_NUM': off_passengers_nums})
+
+    # 역 이름으로 주소 받아와서 DataFrame에 추가
+    station_address_list = []
+    for station in df['SUB_STA_NM']:
+        station_address_list.append(subway_station_address.get_address(station))
+
+    df['ADDRESS'] = station_address_list
     print(df)
     return df

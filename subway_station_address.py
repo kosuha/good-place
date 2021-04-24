@@ -13,7 +13,7 @@ key = api.kakao_key
 
 df = seoul_subway_api.subway_off_sum('20201111')
 
-# 
+# 역 이름으로 주소 받아오기
 def get_address(station_name_):
     # 괄호 지우기
     station_name = station_name_
@@ -53,9 +53,3 @@ def get_address(station_name_):
         print(e)
         print(data_dict)
 
-station_address_list = []
-for station in df['SUB_STA_NM']:
-    station_address_list.append(get_address(station))
-
-df['ADDRESS'] = station_address_list
-print(df)
