@@ -37,5 +37,3 @@ def geocoder(x, y):
     except Exception as e:
         print(e)
         print(data_dict)
-
-geocoder(127.1273370925, 37.5403430618)
