@@ -14,7 +14,7 @@ db_connection = create_engine(pw.conn)
 conn = db_connection.connect()
 
 # api key
-key = api.subway_key
+key = api.seoul_subway_key
 # 요청 파일 타입
 response_type = "json"
 
@@ -87,8 +87,8 @@ def subway_onoff_data(date):
 
 # 지하철역별 하차 승객 수의 합
 def subway_off_sum(date):
-    # subway_onoff = pd.read_sql_query("select * from test", db_connection) # 테스트용
-    subway_onoff = subway_onoff_data(date)
+    subway_onoff = pd.read_sql_query("select * from test", db_connection) # 테스트용
+    # subway_onoff = subway_onoff_data(date)
 
     # 필요한 colume만 추출
     subway_off = subway_onoff[['SUB_STA_NM', 'ALIGHT_PASGR_NUM']]
@@ -105,5 +105,4 @@ def subway_off_sum(date):
     # DataFrame으로 변환
     df = pd.DataFrame({'SUB_STA_NM': subway_stations, 'ALIGHT_PASGR_NUM': off_passengers_nums})
     print(df)
-
-subway_off_sum("20210416")
+    return df

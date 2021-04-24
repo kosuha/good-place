@@ -14,7 +14,7 @@ db_connection = create_engine(pw.conn)
 conn = db_connection.connect()
 
 # api key
-key = api.bus_key
+key = api.seoul_bus_key
 # 요청 파일 타입
 response_type = "json"
 
