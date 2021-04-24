@@ -2,17 +2,15 @@ import os
 import sys
 import json
 import urllib.request
-import config.seoul_api_keys as seoul_api
+import config.api_keys as api
 
 # api key
-key = seoul_api.vworld_key
-# 요청 파일 타입
-response_type = "json"
+key = api.kakao_key
 
-# 좌표를 받아 시군구, 읍면동을 반환
+# 좌표를 받아 [시군구, 읍면동]을 반환
 def geocoder(x, y):
     # url에 값을 넣고 전송하여 응답을 받아옴
-    url = f"http://api.vworld.kr/req/address?service=address&request=getAddress&version=2.0&crs=epsg:4326&point={x},{y}&format={response_type}&type=ROAD&zipcode=false&simple=true&key={key}"
+    url = f"https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x={x}&y={y}"
     print(url)
 
     # 가끔씩 이 부분에서 urllib.error.URLError: <urlopen error [Errno 60] Operation timed out> 발생
@@ -20,6 +18,7 @@ def geocoder(x, y):
     while True:
         try:
             request = urllib.request.Request(url)
+            request.add_header("Authorization", key)
             response = urllib.request.urlopen(request)
             rescode = response.getcode()
             response_body = response.read()
@@ -28,12 +27,15 @@ def geocoder(x, y):
         except Exception as e:
             print(e)
             continue
-    
-    data_dict = data_dict_container['response']
+
+    data_dict = data_dict_container['documents']
 
     try:
-        address = [data_dict['result'][0]['structure']['level2'], data_dict['result'][0]['structure']['level4A']]
+        address = [data_dict[0]['region_2depth_name'], data_dict[0]['region_3depth_name']]
         print(address)
+        return address
     except Exception as e:
         print(e)
         print(data_dict)
+
+geocoder(127.1273370925, 37.5403430618)
