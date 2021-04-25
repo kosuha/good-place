@@ -8,6 +8,7 @@ import config.api_keys as api
 import config.conn as pw
 import pymysql
 from sqlalchemy import create_engine
+import geocode_to_address
 
 # DB에 연결
 db_connection = create_engine(pw.conn)
@@ -87,4 +88,18 @@ def get_locations():
 
     return 0
 
-get_locations()
+def add_address():
+    df = get_locations()
+    addresses = []
+
+    for i in range(0, len(df)):
+        xcode = df.iloc[i, 2]
+        ycode = df.iloc[i, 3]
+        addresses.append(geocode_to_address.geocoder(xcode, ycode))
+
+    df['ADDRESS'] = addresses
+    print(df)
+    
+    return df
+
+# add_address()
